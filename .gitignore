@@ -1,0 +1,9 @@
+build/*
+dist/*
+nbproject/private/*
+/EmpleadosJSF-ejb/build/
+/EmpleadosJSF-war/build/
+/EmpleadosJSF-ejb/dist/
+/EmpleadosJSF-war/dist/
+/EmpleadosJSF-war/nbproject/private/
+/EmpleadosJSF-ejb/nbproject/private/

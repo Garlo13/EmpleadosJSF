@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h2>Empleado #{empleadosBean.empleadoAEditar.empNo}</h2>
+            Nombre: <h:inputText value="#{empleadosBean.empleadoAEditar.nombre}" maxlength="14" /><br/>
+            Apellidos: <h:inputText value="#{empleadosBean.empleadoAEditar.apellidos}" maxlength="40"/><br/>
+            Sexo: <h:selectOneRadio value="#{empleadosBean.empleadoAEditar.sexo}">
+                <f:selectItem itemValue="M" itemLabel="Hombre"/>
+                <f:selectItem itemValue="F" itemLabel="Mujer"/>
+            </h:selectOneRadio><br/>
+            Fecha de nacimiento: <h:inputText p:type="date" value="#{empleadosBean.empleadoAEditar.nacimiento}">
+                <f:convertDateTime pattern="yyyy-MM-dd" timeZone="CET"/>
+            </h:inputText><br/>
+            Fecha de contrato: <h:inputText p:type="date" value="#{empleadosBean.empleadoAEditar.fechaContrato}">
+                <f:convertDateTime pattern="yyyy-MM-dd" timeZone="CET"/>
+            </h:inputText><br/>
+            Departamento: <h:selectOneMenu value="#{modificarEmpleadoBean.departamentoActual}">
+                <f:selectItems value="#{empleadosBean.listaDepartamentos}" var="departamento"
+                               itemValue="#{departamento.deptNo}" itemLabel="#{departamento.nombre}"/>
+            </h:selectOneMenu><br/>
+            <h:commandButton value="Guardar" action="#{modificarEmpleadoBean.doGuardar()}"/>
+        </h:form>
+
+        <h:form>
+            <h3>Historial de Puestos</h3>
+            <h:dataTable value="#{modificarEmpleadoBean.historialPuestos}" var="item">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Denominacion"/>
+                    </f:facet>
+                    <h:outputText value="#{item.puestoPK.denominacion}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="FechaDesde"/>
+                    </f:facet>
+                    <h:outputText value="#{item.puestoPK.fechaDesde}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" timeZone="CET" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="FechaHasta"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaHasta}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" timeZone="CET" />
+                    </h:outputText>
+                </h:column>
+            </h:dataTable><br/>
+            <h:inputText id="denominacion" value="#{modificarEmpleadoBean.denominacion}"/><br/>
+            <h:commandButton value="Gardar nuevo puesto" action="#{modificarEmpleadoBean.doGuardarPuesto()}">
+                 <f:ajax execute="denominacion" render="@form"/>
+            </h:commandButton>
+        </h:form>
+
+        <h:form>
+            <h3>Historial de Sueldos</h3>
+            <h:dataTable value="#{empleadosBean.historialSueldosEmpleadoAEditar}" var="item">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="FechaDesde"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sueldoPK.fechaDesde}">
+                        <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cantidad"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidad}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="FechaHasta"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaHasta}">
+                        <f:convertDateTime pattern="dd-MM-yyyy" timeZone="CET"/>
+                    </h:outputText>
+                </h:column>
+            </h:dataTable>
+            <h:inputText id="cantidad" value="#{modificarEmpleadoBean.cantidad}"/><br/>
+            <h:commandButton value="Gardar nuevo sueldo" action="#{modificarEmpleadoBean.doGuardarSueldo()}"/>
+        </h:form>
+    </h:body>
+</html>
+
